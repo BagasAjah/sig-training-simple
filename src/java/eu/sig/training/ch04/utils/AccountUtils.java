@@ -21,4 +21,14 @@ public class AccountUtils {
             balance.substract(interest);
         }
     }
+
+    public Transfer validateCounterAccount(int sum) throws BusinessException {
+    	if (sum % 11 == 0) {
+            CheckingAccount acct = Accounts.findAcctByNumber(counterAccount);
+            Transfer result = new Transfer(this, acct, amount);
+            return result;
+        } else {
+            throw new BusinessException("Invalid account number!");
+        }
+    }
 }

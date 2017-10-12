@@ -12,18 +12,18 @@ public class SavingsAccount {
         
         AccountUtils accUtils = new AccountUtils();
         int sum = accUtils.validateAccountNumber();
-        
-        if (sum % 11 == 0) {
-            CheckingAccount acct = Accounts.findAcctByNumber(counterAccount);
-            Transfer result = new Transfer(this, acct, amount);
-            if (result.getCounterAccount().equals(this.registeredCounterAccount)) 
-            {
-                return result;
-            } else {
-                throw new BusinessException("Counter-account not registered!");
-            }
+
+        try {
+            Transfer result = AccountUtils.validateCounterAccount(sum);
+        } catch (BusinessException e){
+            throw e;
+        }
+
+        if (result.getCounterAccount().equals(this.registeredCounterAccount)) 
+        {
+            return result;
         } else {
-            throw new BusinessException("Invalid account number!!");
+            throw new BusinessException("Counter-account not registered!");
         }
     }
 

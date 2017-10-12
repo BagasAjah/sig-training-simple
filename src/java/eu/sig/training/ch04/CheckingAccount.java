@@ -14,13 +14,13 @@ public class CheckingAccount {
  
         int sum = AccountUtils.validateAccountNumber();        
 
-        if (sum % 11 == 0) {
-            CheckingAccount acct = Accounts.findAcctByNumber(counterAccount);
-            Transfer result = new Transfer(this, acct, amount);
-            return result;
-        } else {
-            throw new BusinessException("Invalid account number!");
+        try {
+            Transfer result = AccountUtils.validateCounterAccount(sum);
+            return result
+        } catch (BusinessException e){
+            throw e;
         }
+
     }
 
     AccountUtils.addInterest();
