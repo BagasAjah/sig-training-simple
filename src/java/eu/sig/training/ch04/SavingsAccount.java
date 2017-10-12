@@ -14,10 +14,8 @@ public class SavingsAccount {
         int sum = accUtils.validateAccountNumber();
         
         if (sum % 11 == 0) {
-            // 2. Look up counter account and make transfer object:
             CheckingAccount acct = Accounts.findAcctByNumber(counterAccount);
-            Transfer result = new Transfer(this, acct, amount); // <2>
-            // 3. Check whether withdrawal is to registered counter account:
+            Transfer result = new Transfer(this, acct, amount);
             if (result.getCounterAccount().equals(this.registeredCounterAccount)) 
             {
                 return result;

@@ -8,7 +8,6 @@ public class CheckingAccount {
 
     public Transfer makeTransfer(String counterAccount, Money amount)
         throws BusinessException {
-        // 1. Check withdrawal limit:
         if (amount.greaterThan(this.transferLimit)) {
             throw new BusinessException("Limit exceeded!");
         }
@@ -16,7 +15,6 @@ public class CheckingAccount {
         int sum = AccountUtils.validateAccountNumber();        
 
         if (sum % 11 == 0) {
-            // 3. Look up counter account and make transfer object:
             CheckingAccount acct = Accounts.findAcctByNumber(counterAccount);
             Transfer result = new Transfer(this, acct, amount);
             return result;

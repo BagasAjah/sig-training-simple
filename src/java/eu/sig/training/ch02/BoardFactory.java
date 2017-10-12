@@ -1,7 +1,6 @@
 package eu.sig.training.ch02;
 
 public class BoardFactory {
-    // tag::createBoard[]
     public Board createBoard(Square[][] grid) {
         assert grid != null;
 
@@ -12,18 +11,26 @@ public class BoardFactory {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Square square = grid[x][y];
-                for (Direction dir : Direction.values()) {
-                    int dirX = (width + x + dir.getDeltaX()) % width;
-                    int dirY = (height + y + dir.getDeltaY()) % height;
-                    Square neighbour = grid[dirX][dirY];
-                    square.link(neighbour, dir);
-                }
+                BoardProperties prop = new BoardProperties();
+                prop.setHeight(height);
+                prop.setWeight(width);
+                prop.setX(x);
+                prop.setY(y);
+                setLink(grid, square, prop);
             }
         }
 
         return board;
     }
-    // end::createBoard[]
+
+    private void setLink(Square[][] grid, Square square, BoardProperties prop) {
+        for (Direction dir : Direction.values()) {
+            int dirX = (prop.getWeight() + prop.getX() + dir.getDeltaX()) % prop.getWeight();
+            int dirY = (prop.getHeight() + prop.getY() + dir.getDeltaY()) % prop.getHeight();
+            Square neighbour = grid[dirX][dirY];
+            square.link(neighbour, dir);
+        }
+    }
 }
 
 class Board {
@@ -56,5 +63,44 @@ class Direction {
 
     public int getDeltaX() {
         return 0;
+    }
+}
+
+class BoardProperties{
+    private int height;
+    private int weight;
+    private int x;
+    private int y;
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
