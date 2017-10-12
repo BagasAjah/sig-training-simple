@@ -10,7 +10,7 @@ import org.junit.Test;
 public class FlagsTest {
 
     @Test
-    public void testGetFlag() {
+    public void testGetDutchFlag() {
         FlagFactory factory = new FlagFactory();
 
         List<Color> colors = factory.getFlagColors(Nationality.DUTCH);
@@ -18,6 +18,15 @@ public class FlagsTest {
         assertEquals(Color.RED, colors.get(0));
         assertEquals(Color.WHITE, colors.get(1));
         assertEquals(Color.BLUE, colors.get(2));
+    }
+
+    @Test
+    public void testGetDefaultFlag() {
+        FlagFactory factory = new FlagFactory();
+
+        List<Color> colors = factory.getFlagColors(null);
+
+        assertEquals(Color.GRAY, colors.get(0));
     }
 
 }
