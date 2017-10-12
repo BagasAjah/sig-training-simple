@@ -14,8 +14,8 @@ public class BoardFactory {
                 BoardProperties prop = new BoardProperties();
                 prop.setHeight(height);
                 prop.setWeight(width);
-                prop.setX(x);
-                prop.setY(y);
+                prop.setKoordinateX(x);
+                prop.setKoordinateY(y);
                 setLink(grid, square, prop);
             }
         }
@@ -25,8 +25,8 @@ public class BoardFactory {
 
     private void setLink(Square[][] grid, Square square, BoardProperties prop) {
         for (Direction dir : Direction.values()) {
-            int dirX = (prop.getWeight() + prop.getX() + dir.getDeltaX()) % prop.getWeight();
-            int dirY = (prop.getHeight() + prop.getY() + dir.getDeltaY()) % prop.getHeight();
+            int dirX = (prop.getWeight() + prop.getKoordinateX() + dir.getDeltaX()) % prop.getWeight();
+            int dirY = (prop.getHeight() + prop.getKoordinateY() + dir.getDeltaY()) % prop.getHeight();
             Square neighbour = grid[dirX][dirY];
             square.link(neighbour, dir);
         }
@@ -69,8 +69,8 @@ class Direction {
 class BoardProperties{
     private int height;
     private int weight;
-    private int x;
-    private int y;
+    private int koordinateX;
+    private int koordinateY;
 
     public int getHeight() {
         return height;
@@ -88,19 +88,19 @@ class BoardProperties{
         this.weight = weight;
     }
 
-    public int getX() {
-        return x;
+    public int getKoordinateX() {
+        return koordinateX;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setKoordinateX(int koordinateX) {
+        this.koordinateX = koordinateX;
     }
 
-    public int getY() {
-        return y;
+    public int getKoordinateY() {
+        return koordinateY;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setKoordinateY(int koordinateY) {
+        this.koordinateY = koordinateY;
     }
 }
