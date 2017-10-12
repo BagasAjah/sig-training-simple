@@ -1,4 +1,5 @@
 package eu.sig.training.ch04;
+import eu.sig.training.ch04.utils.AccountUtils;
 
 public class CheckingAccount {
     private static final float INTEREST_PERCENTAGE = 0.01f;
@@ -10,12 +11,9 @@ public class CheckingAccount {
         if (amount.greaterThan(this.transferLimit)) {
             throw new BusinessException("Limit exceeded!");
         }
-        int sum = 0;
-        for (int i = 0; i < counterAccount.length(); i++) {
-            char character = counterAccount.charAt(i);
-            int characterValue = Character.getNumericValue(character);
-            sum = sum + (9 - i) * characterValue;
-        }
+ 
+        int sum = AccountUtils.validateAccountNumber();        
+
         if (sum % 11 == 0) {
             CheckingAccount acct = Accounts.findAcctByNumber(counterAccount);
             Transfer result = new Transfer(this, acct, amount);
